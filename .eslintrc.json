@@ -18,6 +18,15 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "@typescript-eslint/explicit-member-accessibility": [
+      2,
+      {
+        "accessibility": "explicit",
+        "overrides": {
+          "constructors": "no-public"
+        }
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -25,6 +34,19 @@
         "js": "never",
         "ts": "never"
       }
-    ]
+    ],
+    "no-underscore-dangle": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
+    "no-restricted-syntax": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   }
 }
