@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import AuthUserEntity from '../../../auth/infrastructure/database/user.entity';
+import UserEntity from '../../../user/infrastructure/database/user.entity';
 
 const {
   DATABASE_DB,
@@ -16,7 +16,7 @@ const postgresDataSource = new DataSource({
   username: String(DATABASE_USER),
   password: String(DATABASE_PASSWORD),
   database: String(DATABASE_DB),
-  entities: [AuthUserEntity],
+  entities: [UserEntity],
   synchronize: true,
 });
 

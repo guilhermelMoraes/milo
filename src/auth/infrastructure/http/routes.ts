@@ -1,21 +1,20 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
 import expressAdapters from '../../../common/http/adapters';
-import postgresDataSource from '../../../common/infrastructure/database/connection';
 import AuthTypeOrmRepository from '../../repository/auth-type-orm.repository';
 import { signUpSchema } from '../../services/sign-up/sign-up.dto';
-import SignUpService from '../../services/sign-up/sign-up.service';
-import SignUpController from './sign-up.controller';
+import SignUpController from './controllers/sign-up.controller';
+
+container.register('AuthRepository', {
+  useClass: AuthTypeOrmRepository,
+});
 
 const authRouter = Router();
-
-const authUserRepository = new AuthTypeOrmRepository(postgresDataSource);
-const signUpService = new SignUpService(authUserRepository);
-const signUpController = new SignUpController(signUpService);
 
 authRouter.post(
   '/sign-up',
   expressAdapters.validationMiddleware(signUpSchema),
-  expressAdapters.controller(signUpController)
+  expressAdapters.controller(container.resolve(SignUpController))
 );
 
 export default authRouter;

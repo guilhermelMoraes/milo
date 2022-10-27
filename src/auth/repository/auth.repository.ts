@@ -1,7 +1,7 @@
-import AuthUser, { AuthProfile } from '../domain/auth-user';
-import { FullNameProps } from '../domain/value-objects/fullname';
+import User, { AuthProfile } from '../../user/domain/user';
+import { FullNameProps } from '../../user/domain/value-objects/fullname';
 
-type UserData = Omit<AuthUser, 'id' | 'fullName'> & FullNameProps;
+type UserData = Omit<User, 'id' | 'fullName'> & FullNameProps;
 
 interface AuthRepository {
   findUser(email: string): Promise<null | AuthProfile>;

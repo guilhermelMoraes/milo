@@ -1,11 +1,14 @@
-import Controller from '../../../common/http/controller/controller';
-import Request from '../../../common/http/controller/request';
-import Response from '../../../common/http/controller/response';
-import ValidationError from '../../../common/validation/validation.error';
-import SignUpDto from '../../services/sign-up/sign-up.dto';
-import SignUpService from '../../services/sign-up/sign-up.service';
-import UserAlreadyExistsError from '../../services/sign-up/user-already-exists';
+import { injectable } from 'tsyringe';
 
+import Controller from '../../../../common/http/controller/controller';
+import Request from '../../../../common/http/controller/request';
+import Response from '../../../../common/http/controller/response';
+import ValidationError from '../../../../common/validation/validation.error';
+import SignUpDto from '../../../services/sign-up/sign-up.dto';
+import SignUpService from '../../../services/sign-up/sign-up.service';
+import UserAlreadyExistsError from '../../../services/sign-up/user-already-exists';
+
+@injectable()
 class SignUpController extends Controller {
   private readonly _signUpService: SignUpService;
 
@@ -25,7 +28,7 @@ class SignUpController extends Controller {
       return SignUpController.conflict(result);
     }
 
-    return SignUpController.created(result);
+    return SignUpController.created();
   }
 }
 

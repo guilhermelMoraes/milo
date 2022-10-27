@@ -21,7 +21,9 @@ function controller(controllerInstance: Controller): Handler {
 
     res
       .status(response.statusCode)
-      .json(isFailResponse(response) ? response.error : response.data);
+      .json(
+        isFailResponse(response) ? response.error : { data: response.data }
+      );
   };
 }
 

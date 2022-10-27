@@ -1,20 +1,26 @@
+/* eslint-disable no-useless-constructor */
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { inject, injectable } from 'tsyringe';
 import ValidationError from '../../../common/validation/validation.error';
-import { AuthProfile } from '../../domain/auth-user';
-import Birthday from '../../domain/value-objects/birthday';
-import Email from '../../domain/value-objects/email';
-import FullName from '../../domain/value-objects/fullname';
-import Password from '../../domain/value-objects/password';
-import auth from '../../infrastructure/firebase/auth/config';
+import { AuthProfile } from '../../../user/domain/user';
+import Birthday from '../../../user/domain/value-objects/birthday';
+import Email from '../../../user/domain/value-objects/email';
+import FullName from '../../../user/domain/value-objects/fullname';
+import Password from '../../../user/domain/value-objects/password';
+import auth from '../../infrastructure/firebase/config';
 import AuthRepository from '../../repository/auth.repository';
 import SignUpDto from './sign-up.dto';
 import UserAlreadyExistsError from './user-already-exists';
 
+@injectable()
 class SignUpService {
-  private readonly _authUserRepository: AuthRepository;
+  // private readonly _authUserRepository: AuthRepository;
 
-  constructor(authUserRepository: AuthRepository) {
-    this._authUserRepository = authUserRepository;
+  constructor(
+    @inject('AuthRepository')
+    private readonly _authUserRepository: AuthRepository
+  ) {
+    // this._authUserRepository = authUserRepository;
   }
 
   public async execute(

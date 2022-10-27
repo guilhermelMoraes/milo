@@ -1,8 +1,8 @@
-import { object, string, date, boolean, ref, SchemaOf } from 'yup';
-import AuthUser from '../../domain/auth-user';
-import { FullNameProps } from '../../domain/value-objects/fullname';
+import { boolean, date, object, ref, SchemaOf, string } from 'yup';
+import User from '../../../user/domain/user';
+import { FullNameProps } from '../../../user/domain/value-objects/fullname';
 
-type SignUpDto = Omit<AuthUser, 'id' | 'fullName' | 'hash'> &
+type SignUpDto = Omit<User, 'id' | 'fullName' | 'hash'> &
   FullNameProps & {
     password: string;
     confirmation: string;

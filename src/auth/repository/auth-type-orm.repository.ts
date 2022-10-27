@@ -1,13 +1,22 @@
+import { injectable, registry } from 'tsyringe';
 import { DataSource, Repository } from 'typeorm';
-import { AuthProfile } from '../domain/auth-user';
-import AuthUserEntity from '../infrastructure/database/user.entity';
+import postgresDataSource from '../../common/infrastructure/database/connection';
+import { AuthProfile } from '../../user/domain/user';
+import UserEntity from '../../user/infrastructure/database/user.entity';
 import AuthRepository, { UserData } from './auth.repository';
 
+@injectable()
+@registry([
+  {
+    token: DataSource,
+    useValue: postgresDataSource,
+  },
+])
 class AuthTypeOrmRepository implements AuthRepository {
-  private readonly _authUserRepository: Repository<AuthUserEntity>;
+  private readonly _authUserRepository: Repository<UserEntity>;
 
   constructor(dataSource: DataSource) {
-    this._authUserRepository = dataSource.getRepository(AuthUserEntity);
+    this._authUserRepository = dataSource.getRepository(UserEntity);
   }
 
   public async signUp(userData: UserData): Promise<AuthProfile> {

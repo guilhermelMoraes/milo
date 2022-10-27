@@ -3,11 +3,10 @@ import cors from 'cors';
 
 import router from './router';
 
-const application = express();
-
-const port = process.env.HTTP_PORT ?? 8000;
-
 function createHttpServer() {
+  const application = express();
+  const port = process.env.HTTP_PORT ?? 8000;
+
   application.use(cors());
   application.use(express.json());
   application.use('/v1', router);
