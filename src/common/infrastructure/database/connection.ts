@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import UserEntity from '../../../user/infrastructure/database/user.entity';
+import logger from '../../log/pino';
 
 const {
   DATABASE_DB,
@@ -23,14 +24,10 @@ const postgresDataSource = new DataSource({
 async function createDbConnection(): Promise<boolean> {
   try {
     const { isInitialized } = await postgresDataSource.initialize();
-    console.log(
-      `[typeorm] ${new Date().toDateString()}: database connection open`
-    );
+    logger.info('database connection open', 'typeorm');
     return isInitialized;
   } catch (error) {
-    console.log(
-      `[typeorm] ${new Date().toDateString()}: database connection closed`
-    );
+    logger.info('database connection closed', 'typeorm');
     return false;
   }
 }
