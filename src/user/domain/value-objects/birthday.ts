@@ -2,7 +2,7 @@ import ValidationStatus from '../../../common/validation/validation-status';
 import ValidationError from '../../../common/validation/validation.error';
 
 interface BirthdayProps {
-  birthday: Date;
+  readonly birthday: Date;
 }
 
 class Birthday implements BirthdayProps {

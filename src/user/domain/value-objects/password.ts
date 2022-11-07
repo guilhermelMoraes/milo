@@ -3,7 +3,7 @@ import ValidationStatus from '../../../common/validation/validation-status';
 import ValidationError from '../../../common/validation/validation.error';
 
 interface PasswordProp {
-  hash: string;
+  readonly hash: string;
 }
 
 interface PasswordCreationProps {

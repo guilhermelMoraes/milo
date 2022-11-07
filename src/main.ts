@@ -1,13 +1,13 @@
 /* eslint-disable import/first */
-import 'reflect-metadata';
 import dotenv from 'dotenv';
+import 'reflect-metadata';
 
 dotenv.config();
 
-import createHttpServer from './common/http/application';
 import { createDbConnection } from './common/infrastructure/database/connection';
+import createHttpServer from './common/infrastructure/http/application';
 
 (async (): Promise<void> => {
-  createHttpServer();
   await createDbConnection();
+  createHttpServer();
 })();

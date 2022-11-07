@@ -2,8 +2,8 @@ import ValidationStatus from '../../../common/validation/validation-status';
 import ValidationError from '../../../common/validation/validation.error';
 
 interface FullNameProps {
-  firstName: string;
-  surname: string;
+  readonly firstName: string;
+  readonly surname: string;
 }
 
 class FullName implements FullNameProps {

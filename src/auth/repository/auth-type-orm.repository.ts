@@ -1,7 +1,7 @@
 import { injectable, registry } from 'tsyringe';
 import { DataSource, Repository } from 'typeorm';
 import postgresDataSource from '../../common/infrastructure/database/connection';
-import { AuthProfile } from '../../user/domain/user';
+import User, { Profile } from '../../user/domain/user';
 import UserEntity from '../../user/infrastructure/database/user.entity';
 import AuthRepository, { UserData } from './auth.repository';
 
@@ -19,7 +19,7 @@ class AuthTypeOrmRepository implements AuthRepository {
     this._authUserRepository = dataSource.getRepository(UserEntity);
   }
 
-  public async signUp(userData: UserData): Promise<AuthProfile> {
+  public async signUp(userData: UserData): Promise<Profile> {
     const authUser = this._authUserRepository.create(userData);
     const user = await this._authUserRepository.save(authUser);
     return {
@@ -35,20 +35,17 @@ class AuthTypeOrmRepository implements AuthRepository {
     };
   }
 
-  public async findUser(email: string): Promise<AuthProfile | null> {
+  public async findUserByEmail(email: string): Promise<User | null> {
     const userOrNull = await this._authUserRepository.findOneBy({ email });
 
     if (userOrNull) {
+      const { firstName, surname, ...rest } = userOrNull;
       return {
-        id: userOrNull.id,
-        email: userOrNull.email,
-        birthday: userOrNull.birthday,
         fullName: {
-          firstName: userOrNull.firstName,
-          surname: userOrNull.surname,
+          firstName,
+          surname,
         },
-        emailVerified: userOrNull.emailVerified,
-        profilePicture: userOrNull.profilePicture,
+        ...rest,
       };
     }
 

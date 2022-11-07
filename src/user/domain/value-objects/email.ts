@@ -2,7 +2,7 @@ import ValidationStatus from '../../../common/validation/validation-status';
 import ValidationError from '../../../common/validation/validation.error';
 
 interface EmailProps {
-  email: string;
+  readonly email: string;
 }
 
 class Email implements EmailProps {

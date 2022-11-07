@@ -6,10 +6,10 @@ import {
 } from 'express';
 import { SchemaOf } from 'yup';
 import validationByContext from '../validation/validation-by-context';
-import Controller from './controller/controller';
-import HttpStatus from './controller/http-status.enum';
-import Request from './controller/request';
-import { isFailResponse } from './controller/response';
+import Controller from './controller';
+import HttpStatus from './http-status.enum';
+import Request from './request';
+import { isFailResponse } from './response';
 
 function controller(controllerInstance: Controller): Handler {
   return async (req: Req, res: Res): Promise<void> => {
@@ -17,8 +17,7 @@ function controller(controllerInstance: Controller): Handler {
       body: req.body,
     };
 
-    const response = await controllerInstance.handle(appRequest);
-
+    const response = await controllerInstance.handleWithCatch(appRequest);
     res
       .status(response.statusCode)
       .json(

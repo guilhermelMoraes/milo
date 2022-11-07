@@ -11,8 +11,12 @@ const stream = pretty({
 const pinoLogger = pino({}, stream);
 
 const logger: Logger = {
-  error: (error: BaseError): void => {
-    pinoLogger.error(error.toDetailedErrorMessage());
+  error: (error: BaseError | Error): void => {
+    if (error instanceof BaseError) {
+      pinoLogger.error(error.toDetailedErrorMessage());
+    } else {
+      pinoLogger.error(error);
+    }
   },
   info: (message: string, tag?: string): void => {
     const withTag = tag ? `[${tag}] ` : '';

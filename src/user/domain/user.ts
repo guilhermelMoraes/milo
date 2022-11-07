@@ -1,7 +1,7 @@
 import { FullNameProps } from './value-objects/fullname';
 
 interface User {
-  id: string;
+  readonly id: string;
   email: string;
   emailVerified?: boolean;
   fullName: FullNameProps;
@@ -13,4 +13,4 @@ interface User {
 type Profile = Omit<User, 'hash'>;
 
 export default User;
-export { Profile as AuthProfile };
+export { Profile };

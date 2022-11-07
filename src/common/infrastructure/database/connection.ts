@@ -27,7 +27,7 @@ async function createDbConnection(): Promise<boolean> {
     logger.info('database connection open', 'typeorm');
     return isInitialized;
   } catch (error) {
-    logger.info('database connection closed', 'typeorm');
+    logger.error(error as Error);
     return false;
   }
 }

@@ -1,4 +1,4 @@
-import { SerializedErrorMessage } from '../../errors/base-error';
+import { SerializedErrorMessage } from '../errors/base-error';
 import HttpStatus from './http-status.enum';
 
 type BaseResponse = {
@@ -10,7 +10,7 @@ type SuccessResponse<T = unknown> = BaseResponse & {
 };
 
 type FailResponse = BaseResponse & {
-  error: SerializedErrorMessage;
+  error: SerializedErrorMessage | string;
 };
 
 type Response<T = unknown> = FailResponse | SuccessResponse<T>;
